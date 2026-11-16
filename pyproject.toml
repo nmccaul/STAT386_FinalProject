@@ -5,6 +5,7 @@ description = "STAT 386 final project: how AI is changing tech hiring"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "pandas>=3.1.1",
     "requests>=2.34.2",
 ]
 

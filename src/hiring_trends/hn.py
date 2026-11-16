@@ -60,3 +60,34 @@ def fetch_thread(thread_id):
 def thread_posts(thread):
     """Return the job posts in a thread: top-level comments that weren't deleted."""
     return [c for c in thread["children"] if c.get("text")]
+
+
+def jobs_table():
+    """Build one row per job post from the saved threads.
+
+    Run scripts/collect_hn_jobs.py first. Exact duplicate posts within a
+    month are dropped.
+    """
+    import pandas as pd
+
+    from hiring_trends import features
+
+    threads = json.loads((RAW_DIR / "hiring_threads.json").read_text())
+    rows = []
+    for t in threads:
+        for post in thread_posts(fetch_thread(t["thread_id"])):
+            text = features.clean_html(post["text"])
+            header = text.split("\n")[0]  # "Company | Role | Location | ..."
+            rows.append({
+                "post_id": post["id"],
+                "month": t["month"],
+                "company": header.split("|")[0].strip() if "|" in header else None,
+                "header": header,
+                "remote": features.mentions(header, r"\bremote\b"),
+                "seniority": features.seniority(header),
+                "mentions_ai": features.mentions(text, features.AI_PATTERN),
+                "text": text,
+            })
+
+    df = pd.DataFrame(rows)
+    return df.drop_duplicates(subset=["month", "text"])

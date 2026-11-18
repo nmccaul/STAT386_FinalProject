@@ -38,7 +38,13 @@ We label a random sample of 400 posts (25 per year) with Jev, an LLM classifier,
 uv run python scripts/label_sample.py
 ```
 
-This saves `data/labels/jev_sample.csv`, prints how often Jev and the rules agree, and writes `data/labels/review.csv`, 50 posts where they disagree to check by hand.
+This saves `data/labels/jev_sample.csv`, prints how often Jev and the rules agree, and writes `data/labels/review.csv`, 50 posts where they disagree to check.
+
+Jev labels for every post are in `data/labels/jev_all.csv`. To relabel them (about 30 minutes, resumes if stopped):
+
+```bash
+uv run python scripts/label_all.py
+```
 
 ## Layout
 

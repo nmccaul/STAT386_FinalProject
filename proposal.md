@@ -32,7 +32,7 @@ H-1B wage filings (stretch goal). The Department of Labor publishes every H-1B a
 
 ## 3. Cleaning, analysis and visualization
 
-Most of the cleaning is turning free text into columns. For each post we'll pull out the main role, seniority, remote or onsite, salary range, years of experience, and whether it uses AI or builds AI. We'll start with keyword rules, then label a sample with an LLM classifier (Jev) and check part of that sample by hand to see how often the rules are right. If the rules are too loose, we'll use the classifier labels for the role column. We'll also drop duplicates and posts that aren't job listings.
+Most of the cleaning is turning free text into columns. For each post we'll pull out the main role, seniority, remote or onsite, salary range, years of experience, and whether it uses AI or builds AI. We'll start with keyword rules, then label a sample with an LLM classifier (Jev) to see how often the rules are right, and have a second model check the posts where they disagree. If the rules are too loose, we'll use the classifier labels. We'll also drop duplicates and posts that aren't job listings.
 
 For the discussion data, we'll leave out the hiring threads, tag each comment by role and topic, and count comments by month. Hacker News has grown since 2011, so we'll use shares of posts and comments instead of raw counts.
 

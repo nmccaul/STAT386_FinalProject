@@ -46,6 +46,14 @@ Jev labels for every post are in `data/labels/jev_all.csv`. To relabel them (abo
 uv run python scripts/label_all.py
 ```
 
+## Role shares over time
+
+```bash
+uv run python scripts/role_shares.py
+```
+
+This joins the Jev role labels to the job posts, drops posts Jev marked as not a job post, and writes `data/processed/role_shares.csv` with the share of each role by year and the post count. 2026 is a partial year.
+
 ## Layout
 
 - `src/hiring_trends/`: the package, with one module per data source (`hn.py` for Hacker News), plus `features.py` for the text flags

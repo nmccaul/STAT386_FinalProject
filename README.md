@@ -54,6 +54,14 @@ uv run python scripts/role_shares.py
 
 This joins the Jev role labels to the job posts, drops posts Jev marked as not a job post, and writes `data/processed/role_shares.csv` with the share of each role by year and the post count. 2026 is a partial year.
 
+## Hacker News talk counts
+
+```bash
+uv run python scripts/collect_hn_talk.py
+```
+
+This counts Hacker News comments each month that match a few search terms (LLM, replace programmers, junior developers, vibe coding, layoffs), plus the number of new Hacker News items that month (from item IDs) so we can use shares. It saves `data/raw/hn/talk_counts.csv` and skips months already saved. It takes about 20 minutes. The terms are in `TALK_TERMS` in `src/hiring_trends/hn.py`. The counts come from Algolia search, so they're close but not exact. 2026-11 is a partial month.
+
 ## Layout
 
 - `src/hiring_trends/`: the package, with one module per data source (`hn.py` for Hacker News), plus `features.py` for the text flags

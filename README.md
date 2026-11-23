@@ -46,6 +46,14 @@ Jev labels for every post are in `data/labels/jev_all.csv`. To relabel them (abo
 uv run python scripts/label_all.py
 ```
 
+## Hacker News talk counts
+
+```bash
+uv run python scripts/collect_hn_talk.py
+```
+
+This counts Hacker News comments each month that match a few search terms (LLM, replace programmers, junior developers, vibe coding, layoffs), plus the number of new Hacker News items that month (from item IDs) so we can use shares. It saves `data/raw/hn/talk_counts.csv` and skips months already saved. It takes about 20 minutes. The terms are in `TALK_TERMS` in `src/hiring_trends/hn.py`. The counts come from Algolia search, so they're close but not exact. 2026-11 is a partial month.
+
 ## Layout
 
 - `src/hiring_trends/`: the package, with one module per data source (`hn.py` for Hacker News), plus `features.py` for the text flags
